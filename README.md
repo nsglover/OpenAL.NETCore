@@ -21,15 +21,19 @@ Run the following in a terminal:
 <code>
 git clone git://repo.or.cz/openal-soft.git
 </code>
+<br/>
 <code>
 cd openal-soft
 </code>
+<br/>
 <code>
 cd build
 </code>
+<br/>
 <code>
 cmake ..
 </code>
+<br/>
 <code>
 make
 </code>
