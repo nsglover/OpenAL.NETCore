@@ -37,6 +37,11 @@ cmake ..
 <code>
 make
 </code>
+<br/>
+<code>
+sudo make install
+</code>
+<br/>
 
 Make sure libopenal.so.1 is in a familiar location (where your package manager typically puts things) and OpenAL.NETCore should find it. If it doesn't, try moving the file to the same directory as your project's executable.
 
