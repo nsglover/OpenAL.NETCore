@@ -366,10 +366,31 @@ namespace OpenAL
         public static extern void SourceUnqueueBuffers(uint sid, int numEntries, uint[] bids);
 
         [DllImport(OpenAlDll, EntryPoint = "alGenBuffers")]
-        public static extern void GenBuffers(int n, uint[] buffers);
+        private static extern unsafe void _GenBuffers(int n, uint* buffers);
+
+        public static void GenBuffers(int n, out uint[] buffers)
+        {
+            unsafe
+            {
+                buffers = new uint[n];
+
+                fixed(uint* arrayPtr = buffers)
+                {
+                    _GenSources(n, arrayPtr);
+                }
+            }
+        }
+
+        public static void GenBuffer(out uint buffer)
+        {
+            GenBuffers(1, out var buffers);
+            buffer = buffers[0];
+        }
 
         [DllImport(OpenAlDll, EntryPoint = "alDeleteBuffers")]
         public static extern void DeleteBuffers(int n, uint[] buffers);
+
+        public static void DeleteBuffer(uint buffer) => DeleteBuffers(1, new[] {buffer});
 
         [DllImport(OpenAlDll, EntryPoint = "alIsBuffer")]
         public static extern bool IsBuffer(uint bid);
