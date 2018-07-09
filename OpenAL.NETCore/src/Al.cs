@@ -376,7 +376,7 @@ namespace OpenAL
 
                 fixed(uint* arrayPtr = buffers)
                 {
-                    _GenSources(n, arrayPtr);
+                    _GenBuffers(n, arrayPtr);
                 }
             }
         }
@@ -396,18 +396,7 @@ namespace OpenAL
         public static extern bool IsBuffer(uint bid);
 
         [DllImport(OpenAlDll, EntryPoint = "alBufferData")]
-        private static extern void _BufferData(uint bid, int format, IntPtr data, int size, int freq);
-
-        public static void BufferData(uint bid, int format, byte[] data, int size, int freq)
-        {
-            unsafe
-            {
-                fixed(byte* arrayPtr = data)
-                {
-                    _BufferData(bid, format, new IntPtr(arrayPtr), size, freq);
-                }
-            }
-        }
+        public static extern unsafe void BufferData(uint bid, int format, void* data, int size, int freq);
 
         [DllImport(OpenAlDll, EntryPoint = "alBufferi")]
         public static extern void Bufferi(uint bid, int param, int value);
