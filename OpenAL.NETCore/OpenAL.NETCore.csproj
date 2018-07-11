@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
-        <Version>1.0.1</Version>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Version>1.0.2</Version>
     </PropertyGroup>
     <PropertyGroup>
         <PackageId>OpenAL.NETCore</PackageId>
         <Authors>NathanielGlover</Authors>
         <Description>
-            OpenAL.NETCore is an up-to-date set of cross-platform C# bindings for OpenAL 1.1 targeting .NET Core.
+            OpenAL.NETCore is an up-to-date set of cross-platform C# bindings for OpenAL 1.1 targeting .NET Core 3.1.
         </Description>
         <PackageTags>OpenAL;.NET</PackageTags>
         <PackageLicenseUrl>https://github.com/NathanielGlover/OpenAL.NETCore/blob/master/LICENSE</PackageLicenseUrl>

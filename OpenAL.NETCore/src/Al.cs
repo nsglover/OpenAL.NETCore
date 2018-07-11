@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // ReSharper disable UnusedMember.Global
@@ -6,15 +7,41 @@ using System.Runtime.InteropServices;
 // ReSharper disable once CheckNamespace
 namespace OpenAL
 {
-    public class Al
+    public static class Al
     {
-#if MACOS
-        public const string OpenAlDll = "/System/Library/Frameworks/OpenAL.framework/OpenAL";
-#elif LINUX
-        public const string OpenAlDll = "libopenal.so.1";
-#elif WINDOWS
-        public const string OpenAlDll = "openal32.dll";
-#endif
+        #region Dll Import Handling
+        
+        public const string OpenAlDll = "OpenAL";
+
+        static Al()
+        {
+            NativeLibrary.SetDllImportResolver(typeof(Al).Assembly, ImportResolver);
+        }
+
+        private static IntPtr ImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+        {
+            IntPtr libHandle = IntPtr.Zero;
+            if (libraryName == OpenAlDll)
+            {
+                if (System.Environment.OSVersion.Platform == PlatformID.Unix)
+                {
+                    const string osx = "OpenAL.framework/OpenAL";
+                    const string linux = "libopenal.so.1";
+                    NativeLibrary.TryLoad(osx, assembly, DllImportSearchPath.System32, out libHandle);
+                    if(libHandle == IntPtr.Zero) //If OSX path didn't work
+                        NativeLibrary.TryLoad(linux, assembly, DllImportSearchPath.System32, out libHandle);
+                }
+                else
+                {
+                    const string windows = "openal32.dll";
+                    NativeLibrary.TryLoad(windows, assembly, DllImportSearchPath.System32, out libHandle);
+                }
+            }
+
+            return libHandle;
+        }
+        
+        #endregion
 
         #region Enum
 
