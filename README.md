@@ -1,5 +1,5 @@
 # OpenAL.NETCore
-OpenAL.NETCore is an up-to-date set of cross-platform C# bindings for OpenAL 1.1 targeting .NET Core.
+OpenAL.NETCore is a set of cross-platform C# bindings for OpenAL 1.1 targeting .NET Core.
 
 Certain functions listed in the [OpenAL specification](https://www.openal.org/documentation/openal-1.1-specification.pdf) have been omitted because they have no actual use in the API. For example, for the "alBuffer3i(int, int, int, int)" function, there is no possible value for the first parameter that will not cause the function to throw the AL_INVALID_ENUM error.
 
